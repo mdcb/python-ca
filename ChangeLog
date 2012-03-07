@@ -1,0 +1,26 @@
+4.0 mdcb
+	 - give it a big number for github
+3.9.7 mdcb
+   - fix nanosec for ts
+   - fix conhandler on destroy
+   - add version and editable text entry for ca pollrate in ca_gtk
+3.9.1 mdcb
+   - print report from gtk_ca_admin
+   - simpler at_exit
+   - fix lib path for x86_64 compatibility
+   - fix int/long format issue
+3.9 mdcb
+   - fix connection handling in async mode
+   - cleanup exit sequence
+3.8.9 mdcb
+   - fix hangs on exit
+3.8.8 mdcb
+   - gtk admin details
+3.8.7 mdcb
+   - implement the buffer interface
+3.8.6 mdcb
+   - make the gtk ca mainloop global and provide ca_quit to exit from it.
+   - fix misc. warnings (pointer %p, include files, etc)
+   - dbug formating using PRETTY_FUNCTION and escape term colors
+x.x.x mdcb
+	 - lost origins.

@@ -1,0 +1,4 @@
+include MANIFEST.in README setup.py setup.cfg
+include ca_gtk.py
+recursive-include src *.c *.h
+include glade/ca_admin.glade

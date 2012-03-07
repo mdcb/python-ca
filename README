@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+Installation
+------------------------------------------------------------------------
+
+define environment variables EPICS, HOST_ARCH, EPICS_HOST_ARCH
+
+e.g.
+
+export EPICS=<your_pathname_to_base>
+export HOST_ARCH=Linux
+export EPICS_HOST_ARCH=linux-x86_64
+
+
+- distutil style:
+sudo python setup.py install
+
+- rpm style:
+python setup.py bdist_rpm
+sudo yum install -y dist/python-ca-*.`uname -m`.rpm
+
+
