@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-	PyObject *pv_enum(pvobject *, PyObject *);
+PyObject * pv_enum(pvobject *, PyObject *);
 
 #ifdef __cplusplus
 }

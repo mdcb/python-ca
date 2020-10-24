@@ -29,48 +29,53 @@ extern "C" {
 #endif
 
 /* a common holder for error message */
-	extern PyObject *python_ca_error;
-	extern int python_ca_destroyed;
+extern PyObject * python_ca_error;
+extern int python_ca_destroyed;
 
-static inline chtype xxx_ca_field_type(chid id) {
-		chtype a;
+static inline chtype xxx_ca_field_type(chid id)
+{
+  chtype a;
 
-		 a = ca_field_type(id);
-		if (ca_module_admin_enum_as_string && (a == DBR_ENUM))
-			return DBR_STRING;
-		else
-			 return a;
-	}
+  a = ca_field_type(id);
 
-	extern epicsEventId pyCAevent;
+  if (ca_module_admin_enum_as_string && (a == DBR_ENUM))
+    { return DBR_STRING; }
+
+  else
+    { return a; }
+}
+
+extern epicsEventId pyCAevent;
 
 /*******************************************************************
  * typedef
  *******************************************************************/
 
-	typedef enum {
-		mon_freeze = -1,
-		mon_off,
-		mon_on
-	} mon_state;
+typedef enum
+{
+  mon_freeze = -1,
+  mon_off,
+  mon_on
+} mon_state;
 
-	typedef struct {
-		PyObject_HEAD char *name;	/* ... */
-		chid chanId;	/* channel id */
-		evid eventId;	/* event id */
-		dbr_time_buff *buff;	/* time+data buffer */
-		float syncT;	/* async or sync timeout for pend_io */
-		int mon;	/* monitor requested */
-		int hidden;	/* hide from dictionary lookup */
-		epicsEventId conid;	/* pthread condition id */
-		PyObject *cbList;	/* callback list, for add/remCb */
-		PyObject *cbH;	/* callback handler, for derived types */
-		PyObject *cbGet;	/* callback handler for get */
-		PyObject *cbPut;	/* callback handler for put */
-		PyObject *connH;	/* connection handler */
-		PyObject *gpdict;	/* general purpose dict */
-		PyObject *weakreflist;	/* weak references support */
-	} pvobject;
+typedef struct
+{
+  PyObject_HEAD char * name; /* ... */
+  chid chanId;  /* channel id */
+  evid eventId; /* event id */
+  dbr_time_buff * buff; /* time+data buffer */
+  float syncT;  /* async or sync timeout for pend_io */
+  int mon;  /* monitor requested */
+  int hidden; /* hide from dictionary lookup */
+  epicsEventId conid; /* pthread condition id */
+  PyObject * cbList; /* callback list, for add/remCb */
+  PyObject * cbH; /* callback handler, for derived types */
+  PyObject * cbGet; /* callback handler for get */
+  PyObject * cbPut; /* callback handler for put */
+  PyObject * connH; /* connection handler */
+  PyObject * gpdict; /* general purpose dict */
+  PyObject * weakreflist; /* weak references support */
+} pvobject;
 
 /*******************************************************************
  * debug
@@ -79,7 +84,7 @@ static inline chtype xxx_ca_field_type(chid id) {
 #ifdef PYTHON_CA_NODEBUG
 #define Debug(level,fmt,...) ;
 #else
-	pthread_t main_thread_ctxt;
+pthread_t main_thread_ctxt;
 #define Debug(level, fmt, ...) { \
     if(level<=ca_module_admin_debug_level) { \
        struct timeval tv_now;\
@@ -131,16 +136,16 @@ static inline chtype xxx_ca_field_type(chid id) {
    }
 
 #define PYCA_ASSERTSTATE(state) {\
-	if (state == cs_never_conn) { PYCA_ERR("cs_never_conn: valid chid, IOC not found"); }\
-	else if (state == cs_prev_conn) { PYCA_ERR("cs_prev_conn: valid chid, IOC was found, but unavailable");}\
-	else if (state == cs_closed) { PYCA_ERR("cs_closed: invalid chid");}\
-	}
+  if (state == cs_never_conn) { PYCA_ERR("cs_never_conn: valid chid, IOC not found"); }\
+  else if (state == cs_prev_conn) { PYCA_ERR("cs_prev_conn: valid chid, IOC was found, but unavailable");}\
+  else if (state == cs_closed) { PYCA_ERR("cs_closed: invalid chid");}\
+  }
 
 /*
  * statically set when init starts.
  * ca_preemtive_callback_is_enabled() return 0 when there's a disconnect
  */
-	extern int python_ca_preemtive_callback_is_enabled;
+extern int python_ca_preemtive_callback_is_enabled;
 
 #if defined(PYTHON_CA_USE_GIL_API)
 #define PYTHON_CA_LOCK                                         \
@@ -155,7 +160,7 @@ static inline chtype xxx_ca_field_type(chid id) {
    PyGILState_Release(__gstate);                               \
    }
 #else
-	extern PyThreadState *pyCAThreadState;
+extern PyThreadState * pyCAThreadState;
 // same as below but better. whatever that meant
 #define PYTHON_CA_LOCK                                         \
    if (python_ca_preemtive_callback_is_enabled) {                   \

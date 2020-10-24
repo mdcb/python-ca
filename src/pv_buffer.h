@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-	PyBufferProcs pv_buffer_procs;
+PyBufferProcs pv_buffer_procs;
 
 #ifdef __cplusplus
 }

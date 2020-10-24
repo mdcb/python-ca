@@ -9,8 +9,8 @@
 extern "C" {
 #endif
 
-	int pv_init(PyObject * self, PyObject * args, PyObject * kwds);
-	PyObject *pv_new(PyTypeObject * type, PyObject * args, PyObject * kwds);
+int pv_init(PyObject * self, PyObject * args, PyObject * kwds);
+PyObject * pv_new(PyTypeObject * type, PyObject * args, PyObject * kwds);
 
 #ifdef __cplusplus
 }

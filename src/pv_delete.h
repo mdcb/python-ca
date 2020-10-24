@@ -5,9 +5,9 @@
 extern "C" {
 #endif
 
-	void pv_delete(pvobject *);
-	int pv_traverse(pvobject *, visitproc, void *);
-	int pv_clear(pvobject *);
+void pv_delete(pvobject *);
+int pv_traverse(pvobject *, visitproc, void *);
+int pv_clear(pvobject *);
 
 #ifdef __cplusplus
 }

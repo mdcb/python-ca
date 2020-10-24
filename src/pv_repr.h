@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-	PyObject *pv_repr(pvobject * self);
+PyObject * pv_repr(pvobject * self);
 
 #ifdef __cplusplus
 }

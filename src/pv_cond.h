@@ -5,8 +5,8 @@
 extern "C" {
 #endif
 
-	PyObject *pv_cond_wait(pvobject *, PyObject *);
-	PyObject *pv_cond_signal(pvobject *, PyObject *);
+PyObject * pv_cond_wait(pvobject *, PyObject *);
+PyObject * pv_cond_signal(pvobject *, PyObject *);
 
 #ifdef __cplusplus
 }

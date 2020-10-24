@@ -6,27 +6,27 @@
  *  pv_repr - python internal representation
  *
  * DESCRIPTION
- *	 python internal representation
+ *   python internal representation
  *
  * RETURNS:
  *
  *
  * PERSONNEL:
- *  	Matthieu Bec, ING Software Group -  mdcb@ing.iac.es\b
- * 	
+ *    Matthieu Bec, ING Software Group -  mdcb@ing.iac.es\b
+ *
  * HISTORY:
- *  	30/06/99 - first documented version
- *  	12/05/04 - would seg. fault if not connected
+ *    30/06/99 - first documented version
+ *    12/05/04 - would seg. fault if not connected
  *               repr only gives basic info so just return that
  *
  *******************************************************************/
-PyObject *pv_repr(pvobject * self)
+PyObject * pv_repr(pvobject * self)
 {
 
-	// default implementation
+  // default implementation
 
-	Debug(5, "pv_repr\n");
+  Debug(5, "pv_repr\n");
 
-	return PyString_FromFormat("<pythonCA.pv object at 0x%p>",
-				   self->chanId);
+  return PyString_FromFormat("<pythonCA.pv object at 0x%p>",
+                             self->chanId);
 }

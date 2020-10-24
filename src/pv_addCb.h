@@ -4,8 +4,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	PyObject *pv_addCb(pvobject * self, PyObject * args, PyObject * kw);
-	PyObject *pv_remCb(pvobject * self, PyObject * args, PyObject * kw);
+PyObject * pv_addCb(pvobject * self, PyObject * args, PyObject * kw);
+PyObject * pv_remCb(pvobject * self, PyObject * args, PyObject * kw);
 #ifdef __cplusplus
 }
 #endif
