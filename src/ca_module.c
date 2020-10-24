@@ -295,7 +295,7 @@ PyObject * python_ca_test(PyObject * self, PyObject * args)
 
   Debug(10, "ca_test_io\n");
 
-  return PyInt_FromLong(ca_test_io() != ECA_IODONE);
+  return PyLong_FromLong(ca_test_io() != ECA_IODONE);
 
 }
 
@@ -1019,7 +1019,7 @@ PyObject * python_ca_lock(PyObject * self, PyObject * args)
       Py_END_ALLOW_THREADS
     }
 
-  status = PyInt_FromLong(st);
+  status = PyLong_FromLong(st);
 
   Py_INCREF(status);
   return status;
@@ -1064,7 +1064,7 @@ PyObject * objrefcnt(PyObject * self, PyObject * args)
   if (!PyArg_ParseTuple(args, "O", &obj))
     { PYCA_USAGE("refcnt(object)"); }
 
-  return PyInt_FromLong(obj->ob_refcnt);
+  return PyLong_FromLong(obj->ob_refcnt);
 }
 
 PyObject * GILlock(PyObject * self, PyObject * args)
@@ -1322,30 +1322,30 @@ PyMODINIT_FUNC initca(void)
   /* 2.7 has better macros, btw. */
   pca_CS = PyDict_New();
   PyDict_SetItemString(pca_CS, "cs_never_conn",
-                       PyInt_FromLong(cs_never_conn));
+                       PyLong_FromLong(cs_never_conn));
   PyDict_SetItemString(pca_CS, "cs_prev_conn",
-                       PyInt_FromLong(cs_prev_conn));
-  PyDict_SetItemString(pca_CS, "cs_conn", PyInt_FromLong(cs_conn));
-  PyDict_SetItemString(pca_CS, "cs_closed", PyInt_FromLong(cs_closed));
+                       PyLong_FromLong(cs_prev_conn));
+  PyDict_SetItemString(pca_CS, "cs_conn", PyLong_FromLong(cs_conn));
+  PyDict_SetItemString(pca_CS, "cs_closed", PyLong_FromLong(cs_closed));
   Py_INCREF(pca_CS);
   PyModule_AddObject(python_camodule, "CS", pca_CS);
 
   pca_DBR_TYPE = PyDict_New();
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_STRING",
-                       PyInt_FromLong(DBR_STRING));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_INT", PyInt_FromLong(DBR_INT));
+                       PyLong_FromLong(DBR_STRING));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_INT", PyLong_FromLong(DBR_INT));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_SHORT",
-                       PyInt_FromLong(DBR_SHORT));
+                       PyLong_FromLong(DBR_SHORT));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_FLOAT",
-                       PyInt_FromLong(DBR_FLOAT));
+                       PyLong_FromLong(DBR_FLOAT));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_ENUM",
-                       PyInt_FromLong(DBR_ENUM));
+                       PyLong_FromLong(DBR_ENUM));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_CHAR",
-                       PyInt_FromLong(DBR_CHAR));
+                       PyLong_FromLong(DBR_CHAR));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_LONG",
-                       PyInt_FromLong(DBR_LONG));
+                       PyLong_FromLong(DBR_LONG));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_DOUBLE",
-                       PyInt_FromLong(DBR_DOUBLE));
+                       PyLong_FromLong(DBR_DOUBLE));
   Py_INCREF(pca_DBR_TYPE);
   PyModule_AddObject(python_camodule, "DBR_TYPE", pca_DBR_TYPE);
 

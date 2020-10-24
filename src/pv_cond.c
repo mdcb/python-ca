@@ -54,7 +54,7 @@ PyObject * pv_cond_wait(pvobject * self, /* self reference */
       Py_END_ALLOW_THREADS
     }
 
-  status = PyInt_FromLong(st);
+  status = PyLong_FromLong(st);
 
   Py_INCREF(status);
   return status;

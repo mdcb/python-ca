@@ -72,7 +72,7 @@ PyObject * pv_enum(pvobject * self, /* self reference */
   for (i = 0; i < bufGrEnum.no_str; i++)
     {
       keyval = PyString_FromString(bufGrEnum.strs[i]);
-      PyDict_SetItem(returnvalue, PyInt_FromLong(i), keyval);
+      PyDict_SetItem(returnvalue, PyLong_FromLong(i), keyval);
       Py_DECREF(keyval);
     }
 

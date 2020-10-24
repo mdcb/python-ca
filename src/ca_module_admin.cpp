@@ -23,12 +23,12 @@ typedef struct
 
 static PyObject * ca_module_admin_debug_getter(contextobject * self, void * closure)
 {
-  return PyInt_FromLong(ca_module_admin_debug_level);
+  return PyLong_FromLong(ca_module_admin_debug_level);
 }
 
 static PyObject * ca_module_admin_enum_as_string_getter(contextobject * self, void * closure)
 {
-  return PyInt_FromLong(ca_module_admin_enum_as_string);
+  return PyLong_FromLong(ca_module_admin_enum_as_string);
 }
 
 static PyObject * ca_module_admin_syncT_getter(contextobject * self, void * closure)

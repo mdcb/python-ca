@@ -59,7 +59,7 @@ PyObject * pv_getter_pvstate(pvobject * self, void * closure)
 PyObject * pv_getter_pvdim(pvobject * self, void * closure)
 {
   if (self->chanId)
-    { return PyInt_FromLong(ca_element_count(self->chanId)); }
+    { return PyLong_FromLong(ca_element_count(self->chanId)); }
 
   else
     {
@@ -250,11 +250,11 @@ PyObject * pv_getter_pvval(pvobject * self, void * closure)
                                    (self->chanId), i,
                                    &data);
             PyTuple_SetItem(returnvalue, i,
-                            PyInt_FromLong(data.i));
+                            PyLong_FromLong(data.i));
           }
 
       else
-        returnvalue = PyInt_FromLong(((struct dbr_time_short *)
+        returnvalue = PyLong_FromLong(((struct dbr_time_short *)
                                       self->buff)->value);
 
       break;
@@ -268,11 +268,11 @@ PyObject * pv_getter_pvval(pvobject * self, void * closure)
                                    (self->chanId), i,
                                    &data);
             PyTuple_SetItem(returnvalue, i,
-                            PyInt_FromLong(data.c));
+                            PyLong_FromLong(data.c));
           }
 
       else
-        returnvalue = PyInt_FromLong(((struct dbr_time_char *)
+        returnvalue = PyLong_FromLong(((struct dbr_time_char *)
                                       self->buff)->value);
 
       break;
@@ -286,11 +286,11 @@ PyObject * pv_getter_pvval(pvobject * self, void * closure)
                                    (self->chanId), i,
                                    &data);
             PyTuple_SetItem(returnvalue, i,
-                            PyInt_FromLong(data.e));
+                            PyLong_FromLong(data.e));
           }
 
       else
-        returnvalue = PyInt_FromLong(((struct dbr_time_enum *)
+        returnvalue = PyLong_FromLong(((struct dbr_time_enum *)
                                       self->buff)->value);
 
       break;
@@ -462,7 +462,7 @@ PyObject * pv_getter_pvstats(pvobject * self, void * closure)
   Py_DECREF(tmp);
 
 //#ifdef PYTHON_CA_DEVCORE
-  tmp = PyInt_FromLong(((PyObject *) self)->ob_refcnt);
+  tmp = PyLong_FromLong(((PyObject *) self)->ob_refcnt);
 
   if (!tmp)
     {
