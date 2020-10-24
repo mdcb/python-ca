@@ -43,8 +43,8 @@ void pv_delete(pvobject * self  /* self-reference */
       self->name = NULL;
     }
 
-  // PyMem_DEL(self);
-  self->ob_type->tp_free((PyObject *) self);
+  PyMem_DEL(self);
+  //self->ob_type->tp_free((PyObject *) self);
 }
 
 int pv_traverse(pvobject * self, visitproc visit, void * arg)
