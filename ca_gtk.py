@@ -68,13 +68,13 @@ def ca_connectall(give_up_time=5000):
   iloop.run()
   if not glib.source_remove(timeout_id):
     for c in ca.admin.channels:
-      print c,ca.admin.channels[c]['state']
-    raise SystemExit, 'unable to get all channels connected'
+      print(c,ca.admin.channels[c]['state'])
+    raise SystemExit('unable to get all channels connected')
 
 def ca_bg_task():
   try:
     ca.poll()
-  except Exception, e:
+  except Exception as e:
     pass
   return True
 

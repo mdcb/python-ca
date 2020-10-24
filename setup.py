@@ -22,13 +22,13 @@ define_macros=[
 
 
 try: epics=env['EPICS']
-except: raise SystemExit, 'EPICS (base) is not defined'
+except: raise SystemExit('EPICS (base) is not defined')
 
 try: host_arch=env['HOST_ARCH']
-except: raise SystemExit, 'HOST_ARCH is not defined'
+except: raise SystemExit('HOST_ARCH is not defined')
 
 try: epics_host_arch=env['EPICS_HOST_ARCH']
-except: raise SystemExit, 'EPICS_HOST_ARCH is not defined'
+except: raise SystemExit('EPICS_HOST_ARCH is not defined')
 
 extra_compile_args=[]
 
@@ -64,6 +64,7 @@ setup(name='python-ca',
             include_dirs=[
                epics+'/include',
                epics +'/include/os/'+host_arch,
+               epics +'/include/compiler/gcc',
                ],
             undef_macros=undef_macros,
             define_macros=define_macros,
