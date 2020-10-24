@@ -189,45 +189,18 @@ PyObject * ca_module_admin_new(PyTypeObject * type, PyObject * args, PyObject * 
 PyTypeObject ca_module_adminType =
 {
   PyObject_HEAD_INIT(&PyType_Type)
-  0,                      /*ob_size - deprecated */
-  "ca.admin",             /*tp_name */
-  sizeof(contextobject),  /*tp_basicsize */
-  0,                      /*tp_itemsize */
-  0,                      /*tp_dealloc */
-  0,                      /*tp_print */
-  0,                      /*tp_getattr - deprecated */
-  0,                      /*tp_setattr - deprecated */
-  0,                      /*tp_compare */
-  (reprfunc) ca_module_admin_repr,  /*tp_repr */
-  0,                      /*tp_as_number */
-  0,                      /*tp_as_sequence */
-  0,                      /*tp_as_mapping */
-  0,                      /*tp_hash */
-  0,                      /*tp_call */
-  (reprfunc) ca_module_admin_str, /*tp_str */
-  PyObject_GenericGetAttr,/*tp_getattro */
-  PyObject_GenericSetAttr,/*tp_setattro */
-  0,                      /*tp_as_buffer */
-  Py_TPFLAGS_DEFAULT,
-  ca_module_admin_doc,    /* tp_doc */
-  0,                      /* tp_traverse - for gc */
-  0,                      /* tp_clear - for gc */
-  0,                      /* tp_richcompare */
-  0,                      /* tp_weaklistoffset */
-  0,                      /* tp_iter */
-  0,                      /* tp_iternext */
-  ca_module_admin_methods,/* tp_methods */
-  ca_module_admin_members,/* tp_members */
-  ca_module_admin_getseters,  /* tp_getset */
-  0,                      /* tp_base */
-  0,                      /* tp_dict */
-  0,                      /* tp_descr_get */
-  0,                      /* tp_descr_set */
-  0,                      /* tp_dictoffset */
-  0,                      /* tp_init */
-  PyType_GenericAlloc,    /* tp_alloc - PyType_GenericAlloc default allocates sizeof(pvType) */
-  ca_module_admin_new,    /* tp_new */
-  0,                      /* tp_free - PyObject_GC_Del default */
+  .tp_name = "ca.admin",
+  .tp_basicsize = sizeof(contextobject),
+  .tp_repr = (reprfunc) ca_module_admin_repr,
+  .tp_str = (reprfunc) ca_module_admin_str,
+  .tp_getattro = PyObject_GenericGetAttr,
+  .tp_setattro = PyObject_GenericSetAttr,
+  .tp_doc = ca_module_admin_doc,
+  .tp_methods = ca_module_admin_methods,
+  .tp_members = ca_module_admin_members,
+  .tp_getset = ca_module_admin_getseters,
+  .tp_alloc = PyType_GenericAlloc,
+  .tp_new = ca_module_admin_new,
 };
 
 int ca_module_admin_singleton_create(void)
