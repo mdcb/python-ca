@@ -66,7 +66,7 @@ static int ca_module_admin_debug_setter(contextobject * self, PyObject * value, 
 
   if ((tmp = PyNumber_Long(value)) != NULL)
     {
-      ca_module_admin_debug_level = PyInt_AsLong(tmp);
+      ca_module_admin_debug_level = PyLong_AsLong(tmp);
       Py_DECREF(tmp);
     }
 
@@ -91,7 +91,7 @@ static int ca_module_admin_enum_as_string_setter(contextobject * self, PyObject 
 
   if ((tmp = PyNumber_Long(value)) != NULL)
     {
-      ca_module_admin_enum_as_string = PyInt_AsLong(tmp);
+      ca_module_admin_enum_as_string = PyLong_AsLong(tmp);
       Py_DECREF(tmp);
     }
 

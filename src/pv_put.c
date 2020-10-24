@@ -172,7 +172,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
 
           if ((tmp = PyNumber_Long(argstupleelt)) != NULL)
             {
-              pval.l = PyInt_AsLong(tmp);
+              pval.l = PyLong_AsLong(tmp);
               Py_DECREF(tmp);
               ca_module_utilsinject(self->buff, type, i,
                                     &pval);
@@ -194,7 +194,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
 
           if ((tmp = PyNumber_Long(argstupleelt)) != NULL)
             {
-              pval.i = PyInt_AsLong(tmp);
+              pval.i = PyLong_AsLong(tmp);
               Py_DECREF(tmp);
               ca_module_utilsinject(self->buff, type, i,
                                     &pval);
@@ -216,7 +216,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
 
           if ((tmp = PyNumber_Long(argstupleelt)) != NULL)
             {
-              pval.c = PyInt_AsLong(tmp);
+              pval.c = PyLong_AsLong(tmp);
               Py_DECREF(tmp);
               ca_module_utilsinject(self->buff, type, i,
                                     &pval);
@@ -238,7 +238,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
 
           if ((tmp = PyNumber_Long(argstupleelt)) != NULL)
             {
-              pval.e = PyInt_AsLong(tmp);
+              pval.e = PyLong_AsLong(tmp);
               Py_DECREF(tmp);
               ca_module_utilsinject(self->buff, type, i,
                                     &pval);
