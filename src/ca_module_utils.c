@@ -1,9 +1,6 @@
 #include "ca_module.h"
 #include "ca_module_utils.h"
 
-static char const rcsid[] =
-    "$Id: ca_module_utils.c 18830 2009-03-19 12:44:55Z mdcb $";
-
 /*******************************************************************
  * NAME
  * ca_module_utilsextract  -  extract index from waveform

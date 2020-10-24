@@ -3,9 +3,6 @@
 
 #include "ca_module_admin.h"
 
-static char const rcsid[] =
-    "$Id: pv_delete.c 34672 2011-05-13 19:53:11Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_delete - object destructor

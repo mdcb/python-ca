@@ -1,8 +1,6 @@
 #include "ca_module.h"
 #include "pv_enum.h"
 
-static char const rcsid[] = "$Id: pv_enum.c 906 2008-04-14 20:33:03Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_enum - get enum menuvalue a string

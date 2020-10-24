@@ -1,8 +1,6 @@
 #include "ca_module.h"
 #include "pv_repr.h"
 
-static char const rcsid[] = "$Id: pv_repr.c 23769 2010-02-09 13:32:00Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_repr - python internal representation

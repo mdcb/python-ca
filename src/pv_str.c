@@ -3,8 +3,6 @@
 
 #include "pv_gettersetter.h"
 
-static char const rcsid[] = "$Id: pv_str.c 906 2008-04-14 20:33:03Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_str - python internal

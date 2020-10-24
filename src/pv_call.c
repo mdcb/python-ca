@@ -3,8 +3,6 @@
 #include "pv_put.h"
 #include "pv_get.h"
 
-static char const rcsid[] = "$Id: pv_call.c 906 2008-04-14 20:33:03Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_call - get/put value

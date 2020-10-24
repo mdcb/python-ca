@@ -2,8 +2,6 @@
 #include "pv_put.h"
 #include "stddef.h"
 
-static char const rcsid[] = "$Id: pv_put.c 29846 2011-01-28 20:27:35Z mdcb $";
-
 /*******************************************************************
  * NAME
  *  pv_put - set PV value
