@@ -258,13 +258,13 @@ PyObject * pv_get(pvobject * self, /* self reference */
                                        (self->chanId),
                                        i, &data);
                 PyTuple_SetItem(returnvalue, i,
-                                PyBytes_FromString
+                                PyUnicode_FromString
                                 (data.s));
               }
 
           else
             returnvalue =
-              PyBytes_FromString(((struct dbr_time_string
+              PyUnicode_FromString(((struct dbr_time_string
                                    *)self->buff)->value);
 
           break;

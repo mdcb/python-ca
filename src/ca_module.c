@@ -578,7 +578,7 @@ int python_ca_printf_handler(const char * pformat, va_list args)
 //    return status;
 
   PYTHON_CA_LOCK;   // TODO - acquire the lock or not?
-  msg = PyBytes_FromFormatV(pformat, args);
+  msg = PyUnicode_FromFormatV(pformat, args);
   retval =
     PyObject_CallFunctionObjArgs(python_ca_printf_handler_func, msg,
                                  NULL);
@@ -677,12 +677,12 @@ void python_ca_exception_event_handler(struct exception_handler_args exception)
 
   if (exception.chid)
     {
-      tmp = PyBytes_FromString(ca_name(exception.chid));
+      tmp = PyUnicode_FromString(ca_name(exception.chid));
     }
 
   else
     {
-      tmp = PyBytes_FromString(exception.ctx);
+      tmp = PyUnicode_FromString(exception.ctx);
     }
 
   retval =
@@ -820,7 +820,7 @@ static PyObject * python_ca_errlogListenerFunc = NULL;
 void python_ca_errlogListener(void * pPrivate, const char * message)
 {
   PyObject * retval;
-  PyObject * msg = PyBytes_FromString(message);
+  PyObject * msg = PyUnicode_FromString(message);
 
   // FIXME - acquire or not the log?
   PYTHON_CA_LOCK;

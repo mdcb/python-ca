@@ -17,7 +17,7 @@ static PyObject * pv_getter_pvtime(pvobject * self, void * closure);
 PyObject * pv_getter_pvname(pvobject * self, void * closure)
 {
   if (self->chanId)
-    { return PyBytes_FromString(ca_name(self->chanId)); }
+    { return PyUnicode_FromString(ca_name(self->chanId)); }
 
   else
     {
@@ -41,7 +41,7 @@ PyObject * pv_getter_pvstate(pvobject * self, void * closure)
 {
   if (self->chanId)
     return
-      PyBytes_FromString(channel_state_str
+      PyUnicode_FromString(channel_state_str
                          [ca_state(self->chanId)]);
 
   else
@@ -73,7 +73,7 @@ PyObject * pv_getter_pvtype(pvobject * self, void * closure)
 {
   if (self->chanId && dbr_type_is_plain(xxx_ca_field_type(self->chanId)))
     return
-      PyBytes_FromString(dbr_text
+      PyUnicode_FromString(dbr_text
                          [xxx_ca_field_type(self->chanId)]);
 
   else
@@ -89,7 +89,7 @@ PyObject * pv_getter_pvtype(pvobject * self, void * closure)
 PyObject * pv_getter_pvaccess(pvobject * self, void * closure)
 {
   if (self->chanId)
-    return PyBytes_FromFormat("%s", ca_read_access(self->chanId)
+    return PyUnicode_FromFormat("%s", ca_read_access(self->chanId)
                               && ca_write_access(self->chanId) ?
                               "rw" : ca_read_access(self->chanId) ?
                               "ro" : ca_write_access(self->chanId)
@@ -108,7 +108,7 @@ PyObject * pv_getter_pvaccess(pvobject * self, void * closure)
 PyObject * pv_getter_pvhostname(pvobject * self, void * closure)
 {
   if (self->chanId)
-    { return PyBytes_FromString(ca_host_name(self->chanId)); }
+    { return PyUnicode_FromString(ca_host_name(self->chanId)); }
 
   else
     {
@@ -126,10 +126,8 @@ PyObject * pv_getter_pvtimestr(pvobject * self, void * closure)
 
   if (self->chanId && self->buff != NULL)
     {
-      //XXX
-      //XXX (void)tsStampToText(&self->buff->stamp, TS_TEXT_MMDDYY,
-      //XXX                    timeText);
-      return PyBytes_FromString(timeText);
+      epicsTimeToStrftime(timeText, sizeof(timeText), "%Y-%m-%d %H:%M:%S", &self->buff->stamp);
+      return PyUnicode_FromString(timeText);
     }
 
   else
@@ -193,12 +191,12 @@ PyObject * pv_getter_pvval(pvobject * self, void * closure)
                                    (self->chanId), i,
                                    &data);
             PyTuple_SetItem(returnvalue, i,
-                            PyBytes_FromString(data.s));
+                            PyUnicode_FromString(data.s));
           }
 
       else
         returnvalue =
-          PyBytes_FromString(((struct dbr_time_string *)
+          PyUnicode_FromString(((struct dbr_time_string *)
                               self->buff)->value);
 
       break;
@@ -487,12 +485,12 @@ PyObject * pv_dict_subscript(pvobject * self, register PyObject * key)
   char * skey;
   PyObject * tmp = NULL;
 
-  //XXX if (!PyString_CheckExact(key))
-  //XXX   {
-  //XXX     PYCA_ERR("key invalid");
-  //XXX   }
+  if (!PyUnicode_CheckExact(key))
+    {
+      PYCA_ERR("key invalid (not str)");
+    }
 
-  skey = PyBytes_AS_STRING(key);
+  skey = PyUnicode_AsUTF8(key);
 
   if (!strcmp(skey, "name"))
     {
@@ -541,7 +539,7 @@ PyObject * pv_dict_subscript(pvobject * self, register PyObject * key)
 
   else
     {
-      PYCA_ERR("key invalid");
+      PYCA_ERR("key invalid: %s", skey);
     }
 
   return tmp;

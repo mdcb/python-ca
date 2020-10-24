@@ -153,12 +153,12 @@ static PyGetSetDef ca_module_admin_getseters[] =
 
 PyObject * ca_module_admin_repr(contextobject * self)
 {
-  return PyBytes_FromFormat("<ca.admin object at 0x%p>", self);
+  return PyUnicode_FromFormat("<ca.admin object at 0x%p>", self);
 }
 
 PyObject * ca_module_admin_str(contextobject * self)
 {
-  return PyBytes_FromFormat("<ca.admin xxx>");
+  return PyUnicode_FromFormat("<ca.admin xxx>");
 }
 
 PyDoc_STRVAR(ca_module_admin_doc, "blah, blah.\n\
@@ -189,7 +189,7 @@ PyObject * ca_module_admin_new(PyTypeObject * type, PyObject * args, PyObject * 
 PyTypeObject ca_module_adminType =
 {
   PyVarObject_HEAD_INIT(NULL, 0)
-  .tp_name = "admin",
+  .tp_name = "ca.admin",
   .tp_basicsize = sizeof(contextobject),
   .tp_repr = (reprfunc) ca_module_admin_repr,
   .tp_str = (reprfunc) ca_module_admin_str,
@@ -220,7 +220,6 @@ int ca_module_admin_singleton_create(void)
 void ca_module_admin_singleton_register(PyObject * m)
 {
   PyModule_AddObject(m, "admin", ca_module_admin_singleton);
-  printf("hello.\n");
 }
 
 void allyourbases_erase(char * name)

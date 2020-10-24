@@ -99,7 +99,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
         {
           argstupleelt = PyTuple_GetItem(argstuple, i);
           Debug(0, " elt %d = %s\n", i,
-                PyBytes_AS_STRING(tmp =
+                PyUnicode_AsUTF8(tmp =
                                     PyObject_Str(argstupleelt)));
         }
 
@@ -113,7 +113,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
         {
           argstupleelt = PyTuple_GetItem(argstuple, i);
           strcpy(pval.s,
-                 PyBytes_AS_STRING(tmp =
+                 PyUnicode_AsUTF8(tmp =
                                      PyObject_Str(argstupleelt)));
           Py_DECREF(tmp);
           ca_module_utilsinject(self->buff, type, i, &pval);

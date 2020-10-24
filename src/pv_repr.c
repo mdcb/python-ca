@@ -27,6 +27,6 @@ PyObject * pv_repr(pvobject * self)
 
   Debug(5, "pv_repr\n");
 
-  return PyBytes_FromFormat("<pythonCA.pv object at 0x%p>",
+  return PyUnicode_FromFormat("<pythonCA.pv object at 0x%p>",
                             self->chanId);
 }
