@@ -153,12 +153,12 @@ static PyGetSetDef ca_module_admin_getseters[] =
 
 PyObject * ca_module_admin_repr(contextobject * self)
 {
-  return PyString_FromFormat("<ca.admin object at 0x%p>", self);
+  return PyBytes_FromFormat("<ca.admin object at 0x%p>", self);
 }
 
 PyObject * ca_module_admin_str(contextobject * self)
 {
-  return PyString_FromFormat("<ca.admin xxx>");
+  return PyBytes_FromFormat("<ca.admin xxx>");
 }
 
 PyDoc_STRVAR(ca_module_admin_doc, "blah, blah.\n\

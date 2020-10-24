@@ -91,7 +91,7 @@ PyObject * pv_getter_pvtype(pvobject * self, void * closure)
 PyObject * pv_getter_pvaccess(pvobject * self, void * closure)
 {
   if (self->chanId)
-    return PyString_FromFormat("%s", ca_read_access(self->chanId)
+    return PyBytes_FromFormat("%s", ca_read_access(self->chanId)
                                && ca_write_access(self->chanId) ?
                                "rw" : ca_read_access(self->chanId) ?
                                "ro" : ca_write_access(self->chanId)

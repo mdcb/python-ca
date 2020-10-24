@@ -612,7 +612,7 @@ int python_ca_printf_handler(const char * pformat, va_list args)
 //    return status;
 
   PYTHON_CA_LOCK;   // TODO - acquire the lock or not?
-  msg = PyString_FromFormatV(pformat, args);
+  msg = PyBytes_FromFormatV(pformat, args);
   retval =
     PyObject_CallFunctionObjArgs(python_ca_printf_handler_func, msg,
                                  NULL);
