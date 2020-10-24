@@ -153,7 +153,7 @@ PyObject * pv_get(pvobject * self, /* self reference */
   PyObject * returnvalue;
 
   PyObject * func;
-  PyObject * cb;
+  PyObject * cb = NULL;
 
   dbr_plaintype data;
   int i;
@@ -258,14 +258,14 @@ PyObject * pv_get(pvobject * self, /* self reference */
                                        (self->chanId),
                                        i, &data);
                 PyTuple_SetItem(returnvalue, i,
-                                PyString_FromString
+                                PyBytes_FromString
                                 (data.s));
               }
 
           else
             returnvalue =
-              PyString_FromString(((struct dbr_time_string
-                                    *)self->buff)->value);
+              PyBytes_FromString(((struct dbr_time_string
+                                   *)self->buff)->value);
 
           break;
 
@@ -324,7 +324,7 @@ PyObject * pv_get(pvobject * self, /* self reference */
           else
             returnvalue =
               PyLong_FromLong(((struct dbr_time_short *)
-                              self->buff)->value);
+                               self->buff)->value);
 
           break;
 
@@ -343,7 +343,7 @@ PyObject * pv_get(pvobject * self, /* self reference */
           else
             returnvalue =
               PyLong_FromLong(((struct dbr_time_char *)
-                              self->buff)->value);
+                               self->buff)->value);
 
           break;
 
@@ -362,7 +362,7 @@ PyObject * pv_get(pvobject * self, /* self reference */
           else
             returnvalue =
               PyLong_FromLong(((struct dbr_time_enum *)
-                              self->buff)->value);
+                               self->buff)->value);
 
           break;
 

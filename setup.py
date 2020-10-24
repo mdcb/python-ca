@@ -32,7 +32,7 @@ except: raise SystemExit('EPICS_HOST_ARCH is not defined')
 
 extra_compile_args=[]
 
-setup(name='python-ca',
+setup(name='python3-ca',
       version=version,
       description='Channel Access for Python',
       long_description='EPICS Channel Access for Python.',
@@ -58,7 +58,7 @@ setup(name='python-ca',
                'src/pv_put.c',
                'src/pv_repr.c',
                'src/pv_str.c',
-               'src/pv_buffer.c',
+               #XXX 'src/pv_buffer.c',
                'src/ca_module.c',
               ],
             include_dirs=[
@@ -74,8 +74,8 @@ setup(name='python-ca',
             extra_compile_args = extra_compile_args,
             )
          ],
-      py_modules=['ca_gtk'],
-      data_files=[('share/python-ca', ['glade/ca_admin.glade']),
-         ],
+      #XXX py_modules=['ca_gtk'],
+      #XXX data_files=[('share/python-ca', ['glade/ca_admin.glade']),
+      #XXX ],
       )
      

@@ -163,13 +163,12 @@ static int PyObj_XComp(PyObject * obj1, PyObject * obj2)
           return -1;
         }
 
-      // none null, compare them
-      PyObject_Cmp(cb1kw, cb2kw, &diff);
-
-      if (diff)
-        {
-          return -1;
-        }
+      //XXX // none null, compare them
+      //XXX PyObject_Cmp(cb1kw, cb2kw, &diff);
+      //XXX if (diff)
+      //XXX   {
+      //XXX     return -1;
+      //XXX   }
     }
 
   // move on the tuple now
@@ -196,13 +195,12 @@ static int PyObj_XComp(PyObject * obj1, PyObject * obj2)
               return -1;
             }
 
-          // none null, compare them
-          PyObject_Cmp(elt1, elt2, &diff);
-
-          if (diff)
-            {
-              return -1;
-            }
+          //XXX // none null, compare them
+          //XXX PyObject_Cmp(elt1, elt2, &diff);
+          //XXX if (diff)
+          //XXX   {
+          //XXX     return -1;
+          //XXX   }
         }
     }
 

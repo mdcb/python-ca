@@ -47,30 +47,12 @@ static struct PyMethodDef pv_methods[] =
   {"put", (PyCFunction) pv_put, METH_VARARGS, "put doc"},
   {"get", (PyCFunction) pv_get, METH_VARARGS | METH_KEYWORDS, "get doc"},
   {"enum", (PyCFunction) pv_enum, METH_VARARGS, "enum doc"},
-  {
-    "monitor", (PyCFunction) pv_monitor, METH_VARARGS,
-    "monitor([1=on|0=0ff|-1=freeze])"
-  },
-  {
-    "eventhandler", (PyCFunction) pv_eventhandler, METH_NOARGS,
-    "eventhandler doc"
-  },
-  {
-    "cond_wait", (PyCFunction) pv_cond_wait, METH_VARARGS,
-    "cond_wait doc"
-  },
-  {
-    "cond_signal", (PyCFunction) pv_cond_signal, METH_NOARGS,
-    "cond_signal doc"
-  },
-  {
-    "addCb", (PyCFunction) pv_addCb, METH_VARARGS | METH_KEYWORDS,
-    "addCb doc"
-  },
-  {
-    "remCb", (PyCFunction) pv_remCb, METH_VARARGS | METH_KEYWORDS,
-    "remCb doc"
-  },
+  {"monitor", (PyCFunction) pv_monitor, METH_VARARGS, "monitor([1=on|0=0ff|-1=freeze])"},
+  {"eventhandler", (PyCFunction) pv_eventhandler, METH_NOARGS, "eventhandler doc"},
+  {"cond_wait", (PyCFunction) pv_cond_wait, METH_VARARGS, "cond_wait doc"},
+  {"cond_signal", (PyCFunction) pv_cond_signal, METH_NOARGS, "cond_signal doc"},
+  {"addCb", (PyCFunction) pv_addCb, METH_VARARGS | METH_KEYWORDS, "addCb doc"},
+  {"remCb", (PyCFunction) pv_remCb, METH_VARARGS | METH_KEYWORDS, "remCb doc"},
   {NULL}      /* sentinel */
 };
 
@@ -104,45 +86,29 @@ static PyMappingMethods pv_as_mapping =
 
 PyTypeObject pvType =
 {
-  PyObject_HEAD_INIT(&PyType_Type) 0, /* ob_size - deprecated */
-  "ca.pv",    /* tp_name */
-  sizeof(pvobject), /* tp_basicsize */
-  0,      /* tp_itemsize */
-  (destructor) pv_delete, /* tp_dealloc */
-  0,      /* tp_print */
-  0,      /* tp_getattr - deprecated */
-  0,      /* tp_setattr - deprecated */
-  0,      /* tp_compare */
-  (reprfunc) pv_repr, /* tp_repr */
-  0,      /* tp_as_number */
-  0,      /* tp_as_sequence */
-  &pv_as_mapping,   /* tp_as_mapping */
-  0,      /* tp_hash */
-  (ternaryfunc) pv_call,  /* tp_call */
-  (reprfunc) pv_str,  /* tp_str */
-  PyObject_GenericGetAttr,  /* tp_getattro */
-  PyObject_GenericSetAttr,  /* tp_setattro */
-  &pv_buffer_procs, /* tp_as_buffer */
-  Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE | Py_TPFLAGS_HAVE_GC,
-  pvobject_doc,   /* tp_doc */
-  (traverseproc) pv_traverse, /* tp_traverse - for gc */
-  (inquiry) pv_clear, /* tp_clear - for gc */
-  0,      /* tp_richcompare */
-  offsetof(pvobject, weakreflist),  /* tp_weaklistoffset */
-  0,      /* tp_iter */
-  0,      /* tp_iternext */
-  pv_methods,   /* tp_methods */
-  pv_members,   /* tp_members */
-  pv_getseters,   /* tp_getset */
-  0,      /* tp_base */
-  0,      /* tp_dict */
-  0,      /* tp_descr_get */
-  0,      /* tp_descr_set */
-  offsetof(pvobject, gpdict), /* tp_dictoffset */
-  pv_init,    /* tp_init */
-  PyType_GenericAlloc,  /* tp_alloc - PyType_GenericAlloc default allocates sizeof(pvType) */
-  pv_new,     /* tp_new */
-  0,      /* tp_free - PyObject_GC_Del default */
+  PyVarObject_HEAD_INIT(NULL, 0)
+  .tp_name = "ca.pv",    /* tp_name */
+  .tp_basicsize = sizeof(pvobject), /* tp_basicsize */
+  .tp_dealloc = (destructor) pv_delete, /* tp_dealloc */
+  .tp_repr = (reprfunc) pv_repr, /* tp_repr */
+  .tp_as_mapping = &pv_as_mapping,   /* tp_as_mapping */
+  .tp_call = (ternaryfunc) pv_call,  /* tp_call */
+  .tp_str = (reprfunc) pv_str,  /* tp_str */
+  .tp_getattro = PyObject_GenericGetAttr,  /* tp_getattro */
+  .tp_setattro = PyObject_GenericSetAttr,  /* tp_setattro */
+  //XXX .tp_as_buffer = &pv_buffer_procs, /* tp_as_buffer */
+  .tp_flags = Py_TPFLAGS_DEFAULT | Py_TPFLAGS_BASETYPE | Py_TPFLAGS_HAVE_GC,
+  .tp_doc = pvobject_doc,   /* tp_doc */
+  .tp_traverse = (traverseproc) pv_traverse, /* tp_traverse - for gc */
+  .tp_clear = (inquiry) pv_clear, /* tp_clear - for gc */
+  .tp_weaklistoffset = offsetof(pvobject, weakreflist),  /* tp_weaklistoffset */
+  .tp_methods = pv_methods,   /* tp_methods */
+  .tp_members = pv_members,   /* tp_members */
+  .tp_getset = pv_getseters,   /* tp_getset */
+  .tp_dictoffset = offsetof(pvobject, gpdict), /* tp_dictoffset */
+  .tp_init = pv_init,    /* tp_init */
+  .tp_alloc = PyType_GenericAlloc,  /* tp_alloc - PyType_GenericAlloc default allocates sizeof(pvType) */
+  .tp_new = pv_new,     /* tp_new */
 };
 
 /*******************************************************************
@@ -711,12 +677,12 @@ void python_ca_exception_event_handler(struct exception_handler_args exception)
 
   if (exception.chid)
     {
-      tmp = PyString_FromString(ca_name(exception.chid));
+      tmp = PyBytes_FromString(ca_name(exception.chid));
     }
 
   else
     {
-      tmp = PyString_FromString(exception.ctx);
+      tmp = PyBytes_FromString(exception.ctx);
     }
 
   retval =
@@ -854,7 +820,7 @@ static PyObject * python_ca_errlogListenerFunc = NULL;
 void python_ca_errlogListener(void * pPrivate, const char * message)
 {
   PyObject * retval;
-  PyObject * msg = PyString_FromString(message);
+  PyObject * msg = PyBytes_FromString(message);
 
   // FIXME - acquire or not the log?
   PYTHON_CA_LOCK;
@@ -1250,7 +1216,7 @@ static struct PyMethodDef python_ca_methods[] =
  *******************************************************************/
 PyDoc_STRVAR(python_ca_doc, "Channel Access for Python.");
 
-PyMODINIT_FUNC initca(void)
+PyMODINIT_FUNC PyInit_ca(void)
 {
 
 #ifdef PYTHON_CA_HELPERS
@@ -1288,15 +1254,27 @@ PyMODINIT_FUNC initca(void)
 #endif
 
   if (PyType_Ready(&pvType) < 0)
-    { return; }
+    { return NULL; }
 
   if (ca_module_admin_singleton_create() < 0)
-    { return; }
+    { return NULL; }
 
   /* Create the module and associated methods */
-  if ((python_camodule =
-         Py_InitModule3("ca", python_ca_methods, python_ca_doc)) == NULL)
-    { return; }
+  static struct PyModuleDef moduledef =
+  {
+    PyModuleDef_HEAD_INIT,
+    "ca", /* m_name */
+    python_ca_doc,      /* m_doc */
+    -1,                  /* m_size */
+    python_ca_methods,    /* m_methods */
+    NULL,                /* m_reload */
+    NULL,                /* m_traverse */
+    NULL,                /* m_clear */
+    NULL,                /* m_free */
+  };
+
+  if ((python_camodule = PyModule_Create(&moduledef)) == NULL)
+    { return NULL; }
 
   /* Register new pv type */
 
@@ -1314,38 +1292,28 @@ PyMODINIT_FUNC initca(void)
   PyModule_AddObject(python_camodule, "pv", (PyObject *) & pvType);
 
   /* Add symbolic constants to the module */
-  PyModule_AddStringConstant(python_camodule, "version",
-                             PYTHON_CA_VERSION);
+  PyModule_AddStringConstant(python_camodule, "version", PYTHON_CA_VERSION);
 
 #ifdef PYTHON_CA_HELPERS
   /* Add dictionary helpers */
   /* 2.7 has better macros, btw. */
   pca_CS = PyDict_New();
-  PyDict_SetItemString(pca_CS, "cs_never_conn",
-                       PyLong_FromLong(cs_never_conn));
-  PyDict_SetItemString(pca_CS, "cs_prev_conn",
-                       PyLong_FromLong(cs_prev_conn));
+  PyDict_SetItemString(pca_CS, "cs_never_conn", PyLong_FromLong(cs_never_conn));
+  PyDict_SetItemString(pca_CS, "cs_prev_conn", PyLong_FromLong(cs_prev_conn));
   PyDict_SetItemString(pca_CS, "cs_conn", PyLong_FromLong(cs_conn));
   PyDict_SetItemString(pca_CS, "cs_closed", PyLong_FromLong(cs_closed));
   Py_INCREF(pca_CS);
   PyModule_AddObject(python_camodule, "CS", pca_CS);
 
   pca_DBR_TYPE = PyDict_New();
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_STRING",
-                       PyLong_FromLong(DBR_STRING));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_STRING", PyLong_FromLong(DBR_STRING));
   PyDict_SetItemString(pca_DBR_TYPE, "DBR_INT", PyLong_FromLong(DBR_INT));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_SHORT",
-                       PyLong_FromLong(DBR_SHORT));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_FLOAT",
-                       PyLong_FromLong(DBR_FLOAT));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_ENUM",
-                       PyLong_FromLong(DBR_ENUM));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_CHAR",
-                       PyLong_FromLong(DBR_CHAR));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_LONG",
-                       PyLong_FromLong(DBR_LONG));
-  PyDict_SetItemString(pca_DBR_TYPE, "DBR_DOUBLE",
-                       PyLong_FromLong(DBR_DOUBLE));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_SHORT", PyLong_FromLong(DBR_SHORT));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_FLOAT", PyLong_FromLong(DBR_FLOAT));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_ENUM", PyLong_FromLong(DBR_ENUM));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_CHAR", PyLong_FromLong(DBR_CHAR));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_LONG", PyLong_FromLong(DBR_LONG));
+  PyDict_SetItemString(pca_DBR_TYPE, "DBR_DOUBLE", PyLong_FromLong(DBR_DOUBLE));
   Py_INCREF(pca_DBR_TYPE);
   PyModule_AddObject(python_camodule, "DBR_TYPE", pca_DBR_TYPE);
 
@@ -1374,13 +1342,9 @@ PyMODINIT_FUNC initca(void)
   // this allows cleaning up gracefully, but watch for long timeout
 #ifdef PYTHON_CA_ATEXIT
   PyObject * atexit_module = PyImport_ImportModule("atexit");
-  PyObject * atexit_register =
-    PyObject_GetAttrString(atexit_module, "register");
-  PyObject * obj_python_ca_exit =
-    PyObject_GetAttrString(python_camodule, "exit");
-  PyObject * retval =
-    PyObject_CallFunctionObjArgs(atexit_register, obj_python_ca_exit,
-                                 NULL);
+  PyObject * atexit_register =  PyObject_GetAttrString(atexit_module, "register");
+  PyObject * obj_python_ca_exit = PyObject_GetAttrString(python_camodule, "exit");
+  PyObject * retval = PyObject_CallFunctionObjArgs(atexit_register, obj_python_ca_exit, NULL);
 
   if (retval == NULL)
     {
@@ -1405,4 +1369,7 @@ PyMODINIT_FUNC initca(void)
       PyEval_ReleaseLock();
 #endif
     }
+
+  return python_camodule;
+
 }

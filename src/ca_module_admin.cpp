@@ -8,7 +8,7 @@
 #include "ca_module.h"
 #include "pv_gettersetter.h"
 
-std::map < std::string, PyObject * >allyourbases;
+std::map <std::string, PyObject *> allyourbases;
 
 PyObject * ca_module_admin_singleton = NULL;
 
@@ -188,8 +188,8 @@ PyObject * ca_module_admin_new(PyTypeObject * type, PyObject * args, PyObject * 
 
 PyTypeObject ca_module_adminType =
 {
-  PyObject_HEAD_INIT(&PyType_Type)
-  .tp_name = "ca.admin",
+  PyVarObject_HEAD_INIT(NULL, 0)
+  .tp_name = "admin",
   .tp_basicsize = sizeof(contextobject),
   .tp_repr = (reprfunc) ca_module_admin_repr,
   .tp_str = (reprfunc) ca_module_admin_str,
@@ -217,9 +217,10 @@ int ca_module_admin_singleton_create(void)
   return 0;
 }
 
-void ca_module_admin_singleton_register(PyObject * module)
+void ca_module_admin_singleton_register(PyObject * m)
 {
-  PyModule_AddObject(module, "admin", ca_module_admin_singleton);
+  PyModule_AddObject(m, "admin", ca_module_admin_singleton);
+  printf("hello.\n");
 }
 
 void allyourbases_erase(char * name)

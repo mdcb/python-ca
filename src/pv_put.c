@@ -89,7 +89,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
       argstuple = args;
     }
 
-  if (PyTuple_Size(argstuple) != ca_element_count(self->chanId))
+  if (PyTuple_Size(argstuple) != (Py_ssize_t) ca_element_count(self->chanId))
     {
       Debug(0,
             "PyTuple_Size(argstuple) = %ld vs ca_element_count = %ld\n",
@@ -99,7 +99,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
         {
           argstupleelt = PyTuple_GetItem(argstuple, i);
           Debug(0, " elt %d = %s\n", i,
-                PyString_AsString(tmp =
+                PyBytes_AS_STRING(tmp =
                                     PyObject_Str(argstupleelt)));
         }
 
@@ -113,7 +113,7 @@ PyObject * pv_put(pvobject * self, /* self reference */
         {
           argstupleelt = PyTuple_GetItem(argstuple, i);
           strcpy(pval.s,
-                 PyString_AsString(tmp =
+                 PyBytes_AS_STRING(tmp =
                                      PyObject_Str(argstupleelt)));
           Py_DECREF(tmp);
           ca_module_utilsinject(self->buff, type, i, &pval);
