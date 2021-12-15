@@ -4,10 +4,13 @@
 
 #include "ca_module.h"
 
+PyBufferProcs pv_buffer_procs;
+
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;
 #endif
 
+#if PY_VERSION_HEX < 0x03090000 // XXX not sure when this really started, but before 3.9
 /* ssize_t-based buffer interface */
 static Py_ssize_t
 pv_getreadbuffer(PyObject * self, Py_ssize_t segment, void ** ptrptr)
@@ -75,6 +78,7 @@ pv_getcharbuffer(PyObject * self, Py_ssize_t segment, char ** ptrptr)
         self, segment, ptrptr);
   return -1;
 }
+#endif
 
 #if PY_VERSION_HEX >= 0x02060000
 static int pv_getbuffer(PyObject * self, Py_buffer * buf, int i)
@@ -94,12 +98,13 @@ static void pv_releasebuffer(PyObject * self, Py_buffer * buf)
 
 PyBufferProcs pv_buffer_procs =
 {
+#if PY_VERSION_HEX < 0x03090000 // XXX not sure when this really started, but before 3.9
   pv_getreadbuffer,
   pv_getwritebuffer,
   pv_getsegcount,
-  pv_getcharbuffer
+  pv_getcharbuffer,
+#endif
 #if PY_VERSION_HEX >= 0x02060000
-  ,
   pv_getbuffer,
   pv_releasebuffer
 #endif

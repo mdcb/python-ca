@@ -9,6 +9,7 @@ e.g.
 export EPICS=<your_pathname_to_base>
 export HOST_ARCH=Linux
 export EPICS_HOST_ARCH=linux-x86_64
+export EPICS=/opt/epics
 
 
 - distutil style:

@@ -58,7 +58,7 @@ setup(name='python3-ca',
                'src/pv_put.c',
                'src/pv_repr.c',
                'src/pv_str.c',
-               #XXX 'src/pv_buffer.c',
+               'src/pv_buffer.c',
                'src/ca_module.c',
               ],
             include_dirs=[
