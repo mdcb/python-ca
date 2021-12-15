@@ -148,7 +148,7 @@ static int PyObj_XComp(PyObject * obj1, PyObject * obj2)
   // obj1 and obj2 are list of two elements
   // [0] is a tuple [func,*args] where args can be NULL
   // [1] is a dictionary { *kw } where kw can be NULL
-  int diff, i;
+  //int diff
   PyObject * cb1args = PyTuple_GetItem(obj1, 0);
   PyObject * cb1kw = PyTuple_GetItem(obj1, 1);
   PyObject * cb2args = PyTuple_GetItem(obj2, 0);
@@ -181,7 +181,7 @@ static int PyObj_XComp(PyObject * obj1, PyObject * obj2)
       return -1;
     }
 
-  for (i = 0; i < len1; i++)
+  for (int i = 0; i < len1; i++)
     {
       PyObject * elt1 = PyTuple_GetItem(cb1args, i);
       PyObject * elt2 = PyTuple_GetItem(cb2args, i);

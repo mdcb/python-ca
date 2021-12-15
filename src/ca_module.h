@@ -84,7 +84,7 @@ typedef struct
 #ifdef PYTHON_CA_NODEBUG
 #define Debug(level,fmt,...) ;
 #else
-pthread_t main_thread_ctxt;
+extern pthread_t main_thread_ctxt;
 #define Debug(level, fmt, ...) { \
     if(level<=ca_module_admin_debug_level) { \
        struct timeval tv_now;\

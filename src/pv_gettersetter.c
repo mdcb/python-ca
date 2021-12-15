@@ -480,9 +480,9 @@ PyObject * pv_getter_pvstats(pvobject * self, void * closure)
   return stats;
 }
 
-PyObject * pv_dict_subscript(pvobject * self, register PyObject * key)
+PyObject * pv_dict_subscript(pvobject * self, PyObject * key)
 {
-  char * skey;
+  const char * skey;
   PyObject * tmp = NULL;
 
   if (!PyUnicode_CheckExact(key))

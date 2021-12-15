@@ -27,6 +27,7 @@
 PyObject * python_camodule;
 PyObject * python_ca_error;
 int python_ca_destroyed;
+pthread_t main_thread_ctxt;
 
 epicsEventId pyCAevent;
 int python_ca_preemtive_callback_is_enabled = 0;
@@ -1227,19 +1228,16 @@ PyMODINIT_FUNC PyInit_ca(void)
   // initialize Python with thread support
   Py_Initialize();
 
-  int releaseLockWhenLeaving;
+  int releaseLockWhenLeaving = 0;
 
 // we only need this at ca_init time
-  if (PyEval_ThreadsInitialized())
-    {
-      releaseLockWhenLeaving = 0;
-    }
-
-  else
+#if PY_VERSION_HEX < 0x03090000
+  if (!PyEval_ThreadsInitialized())
     {
       PyEval_InitThreads(); /* this acquires the lock */
       releaseLockWhenLeaving = 1;
     }
+#endif
 
 #if !defined(PYTHON_CA_NODEBUG)
   main_thread_ctxt = pthread_self();
